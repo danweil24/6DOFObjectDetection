@@ -1,0 +1,12 @@
+
+{
+  "name": "6D-Brick-Pose-Detection",
+  "version-string": "1.0",
+  "dependencies": [
+    "opencv",
+    "onnxruntime",
+    "eigen3",
+    "crow",
+    "nlohmann"
+  ]
+}

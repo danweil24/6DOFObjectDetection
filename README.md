@@ -1,3 +1,60 @@
+# 6D Brick Pose Detection from RGBD Images
+
+## Overview
+
+This project aims to detect the 6D pose of a brick from RGBD images using a combination of 2D segmentation and 3D pose estimation. The approach focuses on creating a baseline solution that runs efficiently and provides a modular framework for ongoing algorithm improvements.
+
+## Pipeline
+
+### 1. Object Segmentation (2D)
+
+- **Objective:** Detect the pixels in the 2D image where the brick lies.
+- **Approach:** Initially, classic vision filters and 2D CNNs were tested, but Meta’s open-source Segment Anything model (v2) was used for better results. The model was modified for faster performance and converted to ONNX format.
+
+![2D Segmentation](path/to/Fig1_image.png)  
+*Figure 1: Detecting point on the center brick by heuristics.*
+
+### 2. Pose Estimation
+
+- **Objective:** Detect the rotation and translation of the segmented data using camera world coordinates.
+- **Approach:** The 3D point cloud is generated using camera intrinsics and depth information. PCA is performed to align the point cloud to the principal axes, and the final rotation is determined by aligning these axes to the desired world coordinates.
+
+![Pose Estimation](path/to/Fig2_image.png)  
+*Figure 2: PCA on point cloud before and after rotation to camera axis.*
+
+## Code and Implementation
+
+- **Language:** C++ with Python prototyping
+- **Dependencies:** OpenCV, ONNX Runtime, Eigen, Crow (HTTP)
+
+For detailed steps on running the project, please refer to the instructions below.
+
+## Environment Setup
+
+### 1. Install Dependencies with vcpkg
+
+```bash
+# Clone the repository
+git clone https://github.com/your-repo/6D-Brick-Pose-Detection.git
+
+# Navigate to the project directory
+cd 6D-Brick-Pose-Detection
+
+# Install vcpkg if not already installed
+git clone https://github.com/microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh
+./vcpkg integrate install
+
+# Install dependencies listed in vcpkg.json
+./vcpkg install --triplet x64-windowss
+```
+## Future Improvements
+
+- **Segmentation:** Training a UNet model specifically for wall data can improve runtime and accuracy.
+- **Pose Estimation:** Handling camera distortion and improving the algorithm for partial visibility of the brick can enhance robustness.
+
+
 
 # BrickDetection HTTP Server
 
@@ -67,3 +124,4 @@ The BrickDetection HTTP server processes RGB-D images to detect the pose of bric
   - `MEDIUM`: Medium verbosity debug prints.
   - `HIGH`: High verbosity debug prints.
   - `ERR`: Error prints.
+
