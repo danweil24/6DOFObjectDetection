@@ -3,26 +3,34 @@
 ## Overview
 
 This project aims to detect the 6D pose of brick from RGBD images using a combination of 2D segmentation and 3D pose estimation. The approach focuses on creating an efficient baseline solution and provides a modular framework for ongoing algorithm improvements.
+It assumes that the object is boxed-shaped and that the size of its sides is known.
 
 ## Pipeline
 
 ### 1. Object Segmentation (2D)
 
 - **Objective:** Detect the pixels in the 2D image where the brick lies.
-- **Approach:** Initially, classic vision filters and 2D CNNs were tested, but Meta’s open-source Segment Anything model (v1) was used for better results. The model was modified for faster performance and converted to ONNX format.
-- As known as the Segment Anything model required a prompted, a point within the wanted object so I used a heuristic by the wall depth and assumption about the   
+- **Approach:** Initially, classic vision filters and 2D CNNs were tested, but Meta’s open-source Segment Anything model (v1) was used for better results. The model was modified for faster performance and converted to ONNX format. check out the forked repo https://github.com/danweil24/seg_anything_1_onnx. I filtred the results using a simple connected component algorithm to reduce noise and to allow a smaller model and faster (check fig2) 
+- The Segment Anything model required a prompted, a point within the wanted object. I used a heuristic by the wall depth and assumption about the   
 
-![2D Segmentation](\assets\detect_point_heuristic.png)  
+![2D Segmentation - point seggustion](./assets/detect_point_heuristic.png)  
 *Figure 1: Detecting point on the center brick by heuristics.*
+
+![2D Segmentation ](./assets/segmentation.png) 
+*Fig2 : Network output, we can see the tradeoffs in runtime between models and performance, and filter results
 
 
 ### 2. Pose Estimation
 
 - **Objective:** Detect the rotation and translation of the segmented data using camera world coordinates.
-- **Approach:** The 3D point cloud is generated using camera intrinsics and depth information. PCA is performed to align the point cloud to the principal axes, and the final rotation is determined by aligning these axes to the desired world coordinates.
+- **Approach:**
+- The 3D point cloud is generated using camera intrinsics and depth information, and the z is filtered for noise reductions.
+- PCA is performed to align the point cloud to the principal axes,
+- The final rotation is determined by aligning these axes to the desired world coordinates by the known sizes of the brick axis.
 
-![Pose Estimation](path/to/Fig2_image.png)  
-*Figure 2: PCA on point cloud before and after rotation to camera axis.*
+![Pose Estimation](./assets/pca_algo_fig.png)  
+*Figure 3: in the left plot , the point cloud with PCA before rotation to the camera axis, near the point cloud is rotated and
+compared to the template, showing that the x-axis fits the short side.*
 
 ## Code and Implementation
 
@@ -31,7 +39,7 @@ This project aims to detect the 6D pose of brick from RGBD images using a combin
 
 For detailed steps on running the project, please refer to the instructions below.
 
-## Environment Setup
+## Setup
 
 ### 1. Install Dependencies with vcpkg
 
@@ -51,6 +59,7 @@ cd vcpkg
 # Install dependencies listed in vcpkg.json
 ./vcpkg install --triplet x64-windowss
 ```
+### 2. Download the pre-trained seg1 model onnx (3 different input sizes supported)  
 ## Future Improvements
 
 - **Segmentation:** Training a UNet model specifically for wall data can improve runtime and accuracy.
@@ -63,6 +72,7 @@ cd vcpkg
 ## Overview
 
 The BrickDetection HTTP server processes RGB-D images to detect the pose of bricks. This guide provides instructions on how to use the HTTP server.
+One can also check runHtpExamples.bat as an example of running the HTTP server.
 
 ## Starting the Server
 
