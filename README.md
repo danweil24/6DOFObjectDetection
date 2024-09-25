@@ -2,17 +2,19 @@
 
 ## Overview
 
-This project aims to detect the 6D pose of a brick from RGBD images using a combination of 2D segmentation and 3D pose estimation. The approach focuses on creating a baseline solution that runs efficiently and provides a modular framework for ongoing algorithm improvements.
+This project aims to detect the 6D pose of brick from RGBD images using a combination of 2D segmentation and 3D pose estimation. The approach focuses on creating an efficient baseline solution and provides a modular framework for ongoing algorithm improvements.
 
 ## Pipeline
 
 ### 1. Object Segmentation (2D)
 
 - **Objective:** Detect the pixels in the 2D image where the brick lies.
-- **Approach:** Initially, classic vision filters and 2D CNNs were tested, but Meta’s open-source Segment Anything model (v2) was used for better results. The model was modified for faster performance and converted to ONNX format.
+- **Approach:** Initially, classic vision filters and 2D CNNs were tested, but Meta’s open-source Segment Anything model (v1) was used for better results. The model was modified for faster performance and converted to ONNX format.
+- As known as the Segment Anything model required a prompted, a point within the wanted object so I used a heuristic by the wall depth and assumption about the   
 
-![2D Segmentation](path/to/Fig1_image.png)  
+![2D Segmentation](\assets\detect_point_heuristic.png)  
 *Figure 1: Detecting point on the center brick by heuristics.*
+
 
 ### 2. Pose Estimation
 
