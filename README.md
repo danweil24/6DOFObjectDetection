@@ -10,7 +10,7 @@ It assumes that the object is boxed-shaped and that the size of its sides is kno
 ### 1. Object Segmentation (2D)
 
 - **Objective:** Detect the pixels in the 2D image where the brick lies.
-- **Approach:** Initially, classic vision filters and 2D CNNs were tested, but Meta’s open-source Segment Anything model (v1) was used for better results. The model was modified for faster performance and converted to ONNX format. check out the forked repo https://github.com/danweil24/seg_anything_1_onnx. I filtred the results using a simple connected component algorithm to reduce noise and to allow a smaller model and faster (check fig2) 
+- **Approach:** Initially, classic vision filters and 2D CNNs were tested, but Meta’s open-source Segment Anything model (v1) was used for better results. The model was modified for faster performance and converted to ONNX format. check out the forked repo https://github.com/danweil24/seg_anything_1_onnx. I filtered the results using a simple connected component algorithm to reduce noise and to allow a smaller model and faster (check fig2) 
 - The Segment Anything model required a prompted, a point within the wanted object. I used a heuristic by the wall depth and assumption about the   
 
 ![2D Segmentation - point seggustion](./assets/detect_point_heuristic.png)  
