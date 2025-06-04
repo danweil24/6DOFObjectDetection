@@ -9,5 +9,6 @@
     "eigen3",
     "crow",
     "nlohmann-json"
-  ]
+  ],
+  "builtin-baseline": "4f1ecdbf57f68a02dc8cf362bb7be32f3d2cfdb3"
 }
