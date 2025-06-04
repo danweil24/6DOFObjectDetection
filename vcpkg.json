@@ -1,6 +1,7 @@
 
 {
-  "name": "6D-Brick-Pose-Detection",
+  "name": "brick-pose-detection",
+
   "version-string": "1.0",
   "dependencies": [
     "opencv",
