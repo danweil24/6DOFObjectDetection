@@ -5,7 +5,7 @@
   "version-string": "1.0",
   "dependencies": [
     "opencv",
-    "onnxruntime",
+    "onnxruntime-gpu",
     "eigen3",
     "crow",
     "nlohmann-json"
