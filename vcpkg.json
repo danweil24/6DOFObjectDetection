@@ -8,6 +8,6 @@
     "onnxruntime",
     "eigen3",
     "crow",
-    "nlohmann"
+    "nlohmann-json"
   ]
 }
