@@ -47,7 +47,7 @@ cv::Mat Preprocessor::normPad(const cv::Mat& x, const PreprocessParams& params) 
         }
     }
 
-    if (params.mChangeToCWH) {
+    if (params.mChangeToCHW) {
         cv::Mat chwImage;
         cv::vconcat(channels, chwImage); // Concatenate along the channels dimension
         normX = chwImage;
