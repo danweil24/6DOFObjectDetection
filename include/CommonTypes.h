@@ -20,7 +20,7 @@ struct PreprocessParams {
     cv::Scalar mMean = cv::Scalar(123.675, 116.28, 103.53); // Mean for normalization
     cv::Scalar mStd = cv::Scalar(58.395, 57.12, 57.375);    // Standard deviation for normalization
     int mOutputSize = 640;         // Output size for the image
-    bool mChangeToCWH = true;         // Transpose the image
+    bool mChangeToCHW = true;         // Transpose the image to CHW format
 };
 
 struct CameraParams {

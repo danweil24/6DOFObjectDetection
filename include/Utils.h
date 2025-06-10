@@ -14,7 +14,7 @@ float getScaleFactorBetweenUnits(SIZEUNIT from, SIZEUNIT to);
 
 /**
  * @class Preprocessor
- * @brief A class to preprocess images by resizing, normalizing, and padding while optionally converting the image to CWH format.
+ * @brief A class to preprocess images by resizing, normalizing, and padding while optionally converting the image to CHW format.
  */
 class Preprocessor {
 public:
